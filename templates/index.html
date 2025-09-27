@@ -1,0 +1,127 @@
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>黑猫 Black Cat 搜索</title>
+  <style>
+    body {
+      background:#fff;
+      margin:0;
+      font-family:"Segoe UI", Arial, sans-serif;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+    }
+    header {
+      margin-top:50px;
+      text-align:center;
+    }
+    header h1 {
+      font-size:40px;
+      font-weight:bold;
+      color:black;
+      margin-bottom:15px;
+    }
+    header img {
+      width:120px;
+      height:auto;
+    }
+    /* 搜索框 */
+    .search-box {
+      margin-top:40px;
+      width:80%;
+      max-width:600px;
+      display:flex;
+      justify-content:center;
+    }
+    .search-box input[type="text"] {
+      flex:1;
+      padding:12px 16px;
+      font-size:18px;
+      border:2px solid #333;
+      border-radius:25px 0 0 25px;
+      outline:none;
+    }
+    .search-box button {
+      padding:12px 20px;
+      font-size:18px;
+      border:none;
+      border-radius:0 25px 25px 0;
+      background:black;
+      color:white;
+      cursor:pointer;
+      transition:0.3s;
+    }
+    .search-box button:hover {
+      background:#444;
+    }
+
+    /* AI 入口卡片 */
+    .ai-entry {
+      margin-top: 60px;
+      display: flex;
+      justify-content: center;
+      width: 100%;
+    }
+    .ai-card {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      text-decoration: none;
+      background: white;
+      border-radius: 15px;
+      padding: 20px 30px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+      transition: all 0.3s ease;
+      max-width: 400px;
+      width: 90%;
+    }
+    .ai-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.25);
+    }
+    .ai-icon {
+      font-size: 40px;
+    }
+    .ai-text h2 {
+      margin: 0;
+      font-size: 22px;
+      color: #000;
+    }
+    .ai-text p {
+      margin: 5px 0 0;
+      font-size: 14px;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>黑猫 Black Cat</h1>
+    <img src="{{ url_for('static', filename='logo.png') }}" alt="黑猫图标">
+  </header>
+
+  <!-- 搜索框 -->
+  <div class="search-box">
+    <form action="https://www.baidu.com/s" method="get" target="_blank" style="display:flex; width:100%;">
+      <input type="text" name="wd" placeholder="请输入搜索内容...">
+      <button type="submit">搜索</button>
+    </form>
+  </div>
+
+  <!-- AI 入口卡片 -->
+  <div class="ai-entry">
+    <a href="/chat" class="ai-card">
+      <div class="ai-icon">🐾</div>
+      <div class="ai-text">
+        <h2>黑猫 AI</h2>
+        <p>点击进入，与黑猫 AI 开始对话</p>
+      </div>
+    </a>
+  </div>
+</body>
+</html>
