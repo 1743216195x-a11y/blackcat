@@ -11,6 +11,10 @@ client = OpenAI(
     api_key="sk-laktyimuvruwxaxbwkrjdcooazwsejzbxqjhygrqwyqguhyv",
     base_url="https://api.siliconflow.cn/v1"
 )
+client = OpenAI(
+    api_key="sk-xxxxx",
+    base_url="https://api.siliconflow.cn/v1"
+)
 
 # 网站首页
 @app.route('/')
