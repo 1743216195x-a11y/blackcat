@@ -1,44 +1,44 @@
-# -*- coding: utf-8 -*-
-import os
-from flask import Flask, request, jsonify, render_template
+
+
+from flask import Flask, render_template, request, jsonify
 from openai import OpenAI
 
+# 创建 Flask 应用
 app = Flask(__name__)
 
-# API 配置（建议后续放到 .env 文件中管理）
+# 初始化 OpenAI 客户端（注意：没有 proxies 参数）
 client = OpenAI(
     api_key="sk-laktyimuvruwxaxbwkrjdcooazwsejzbxqjhygrqwyqguhyv",
     base_url="https://api.siliconflow.cn/v1"
 )
 
-# 首页
-@app.route("/")
+# 网站首页
+@app.route('/')
 def index():
-    return render_template("index.html")
+    return "<h2>✅ 网站部署成功！<br>请输入 /chat 来与 AI 对话。</h2>"
 
-# 聊天页
-@app.route("/chat")
+# 简单聊天接口
+@app.route('/chat', methods=['POST'])
 def chat():
-    return render_template("chat.html")
-
-# AI 回复接口
-@app.route("/ask", methods=["POST"])
-def ask():
-    data = request.json
-    user_input = data.get("question", "")
+    data = request.get_json()
+    user_message = data.get("message", "")
 
     try:
+        # 调用 OpenAI Chat 接口
         response = client.chat.completions.create(
-            model="Qwen/QwQ-32B",
-            messages=[{"role": "user", "content": user_input}]
+            model="gpt-4o-mini",
+            messages=[
+                {"role": "system", "content": "你是一个友好的AI助手。"},
+                {"role": "user", "content": user_message}
+            ]
         )
-        answer = response.choices[0].message.content
+        reply = response.choices[0].message.content
+        return jsonify({"reply": reply})
     except Exception as e:
-        answer = f"出错了: {str(e)}"
-
-    return jsonify({"answer": answer})
-
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+        return jsonify({"error": str(e)}), 500
 
 
+# Render 启动入口
+if __name__ == '__main__':
+    # 在本地运行时使用端口 5000
+    app.run(host='0.0.0.0', port=5000)
